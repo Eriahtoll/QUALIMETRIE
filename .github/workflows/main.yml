@@ -52,8 +52,8 @@ jobs:
             echo "$f - $LINES" >> $REPORT
           done
 
-      - name: Upload report as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: java-file-report
-          path: java-file-report.txt
+- name: Upload report as artifact
+  uses: actions/upload-artifact@v4
+  with:
+    name: java-file-report
+    path: java-file-report.txt
