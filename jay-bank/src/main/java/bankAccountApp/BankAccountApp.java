@@ -6,6 +6,7 @@
 package bankAccountApp;
 
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,6 +14,7 @@ import java.util.Scanner;
  */
 public class BankAccountApp {
 
+	private static final Logger logger = Logger.getLogger(BankAccountApp.class.getName());
 
 	/**
 	 * @param args the command line arguments
@@ -37,12 +39,12 @@ public class BankAccountApp {
 		// accountsLoaded = bankAccountManager.loadFromText(text);
 		accManager.setAccountsLoaded(bankAccountManager.loadFromText(text));
 
-		System.out.println("Loaded " + accManager.getAccountsLoaded() + " accounts.");
+		logger.info("Loaded " + accManager.getAccountsLoaded() + " accounts.");
 
 		while (endProgram == false) {
 			while (mainmenu == true) {
 
-				System.out.println("To create a new account enter new,  " + "\n"
+				logger.info("To create a new account enter new,  " + "\n"
 						+ "to perform operations in an existing account enter account , " + "\n"
 						+ "To delete an existing account enter delete " + "\n"
 						+ "to diplay the average of all account balances enter Average " + "\n"
@@ -58,7 +60,7 @@ public class BankAccountApp {
 					}
 					notMainMenu = true;
 					while (notMainMenu == true) {
-						System.out.println(
+						logger.info(
 								"Enter account holder's name, gender, age,weight, height, hair color, eye color, email, "
 										+ " initial amount of money,withdraw limit and date created");
 						String name = scan.next();
@@ -82,28 +84,28 @@ public class BankAccountApp {
 						BankAccount acc1 = new BankAccount(initMoneyAmount, withdrawLimit, dateCreated, accountHolder);
 
 						accManager.addAccount(acc1, ifloadaccManager);
-						System.out.println("Your account number is " + acc1.getAccountNumber());
+						logger.info("Your account number is " + acc1.getAccountNumber());
 						newAccountOperations = true;
 						while (newAccountOperations == true) {
-							System.out.println("Enter one of these operations:" + "/n"
+							logger.info("Enter one of these operations:" + "/n"
 									+ " DEPOSIT, WITHDRAW, BALANCE, or MAINMENU ");
 							operation = scan.next();
 
 							if (operation.equalsIgnoreCase("BALANCE")) {
-								System.out.println("Balance is: " + acc1.getBalance());
+								logger.info("Balance is: " + acc1.getBalance());
 							}
 
 							if (operation.equalsIgnoreCase("DEPOSIT")) {
-								System.out.println("Enter an amount to deposit");
+								logger.info("Enter an amount to deposit");
 								double depositAmount = scan.nextDouble();
 								acc1.depositMoney(depositAmount);
 							}
 							if (operation.equalsIgnoreCase("WITHDRAW")) {
-								System.out.println("Enter an amount to withdraw");
+								logger.info("Enter an amount to withdraw");
 								double withdrawAmount = scan.nextDouble();
 								boolean success = acc1.withdrawMoney(withdrawAmount);
 								if (success == false) {
-									System.out.println("Unable to complete transaction"
+									logger.info("Unable to complete transaction"
 											+ " because of insufficient funds or reached" + " withdraw limit. ");
 								}
 							}
@@ -118,75 +120,75 @@ public class BankAccountApp {
 				}
 
 				if (options.equalsIgnoreCase("AVERAGE")) {
-					System.out.println("Average of accounts is " + accManager.getAverageBalance());
+					logger.info("Average of accounts is " + accManager.getAverageBalance());
 				}
-				
+
 				if (options.equalsIgnoreCase("MAXIMUM")) {
-					System.out.println("The maximum of all accounts is " + accManager.getMaximumBalance());
+					logger.info("The maximum of all accounts is " + accManager.getMaximumBalance());
 				}
 				if (options.equalsIgnoreCase("minimum")) {
-					System.out.println("The minimum of all accounts is " + accManager.getMinimumBalance());
+					logger.info("The minimum of all accounts is " + accManager.getMinimumBalance());
 				}
 				if (options.equalsIgnoreCase("quit")) {
 					endProgram = true;
 					mainmenu = false;
 				}
 				if (options.equalsIgnoreCase("delete")) {
-					System.out.println("Enter account number of account to delete");
+					logger.info("Enter account number of account to delete");
 					number = scan.nextInt();
 					BankAccount tmpacc = accManager.findAccount(number);
 					if (tmpacc == null) {
-						System.out.println("Account dosen't exist");
+						logger.info("Account dosen't exist");
 						break;
 					}
 					accManager.deleteAccount(number);
 				}
 
 				if (options.equalsIgnoreCase("Account")) {
-					System.out.println(
+					logger.info(
 							"Enter one of these operations:" + "/n" + " DEPOSIT, WITHDRAW, BALANCE, MENU or QUIT. ");
 					operation = scan.next();
 					if (operation.equalsIgnoreCase("BALANCE")) {
-						System.out.println("Enter Account Number");
+						logger.info("Enter Account Number");
 						number = scan.nextInt();
 						BankAccount tmpacc = accManager.findAccount(number);
 						if (tmpacc == null) {
-							System.out.println("Account dosen't exist");
+							logger.info("Account dosen't exist");
 							break;
 						}
-						System.out.println("Balance is: " + tmpacc.getBalance());
+						logger.info("Balance is: " + tmpacc.getBalance());
 					}
 
 					if (operation.equalsIgnoreCase("DEPOSIT")) {
-						System.out.println("Enter Account number");
+						logger.info("Enter Account number");
 						number = scan.nextInt();
 						BankAccount tmpacc = accManager.findAccount(number);
 						if (tmpacc == null) {
-							System.out.println("Account dosen't exist");
+							logger.info("Account dosen't exist");
 							break;
 						} else {
-							System.out.println("Enter an amount to deposit");
+							logger.info("Enter an amount to deposit");
 						}
 						double depositAmount = scan.nextDouble();
 						tmpacc.depositMoney(depositAmount);
 					}
 					if (operation.equalsIgnoreCase("WITHDRAW")) {
-						System.out.println("Enter Account number");
+						logger.info("Enter Account number");
 						number = scan.nextInt();
 						BankAccount tmpacc = accManager.findAccount(number);
 						if (tmpacc == null) {
-							System.out.println("Account dosen't exist");
+							logger.info("Account dosen't exist");
 							break;
 						} else {
-							System.out.println("Enter an amount to withdraw");
+							logger.info("Enter an amount to withdraw");
 						}
 						double withdrawAmount = scan.nextDouble();
 						boolean success = tmpacc.withdrawMoney(withdrawAmount);
 						if (success == false) {
-							System.out.println("Unable to complete transaction"
+							logger.info("Unable to complete transaction"
 									+ " because of insufficient funds or reached" + " withdraw limit. ");
 						} else {
-							System.out.println("Withdraw succeded");
+							logger.info("Withdraw succeded");
 						}
 
 					}
@@ -198,19 +200,19 @@ public class BankAccountApp {
 							&& !operation.equalsIgnoreCase("WITHDRAW") && !operation.equalsIgnoreCase("QUIT")
 							&& !operation.equalsIgnoreCase("MAXIMUM") && !operation.equalsIgnoreCase("MINIMUM")
 							&& !operation.equalsIgnoreCase("AVERAGE") && !operation.equalsIgnoreCase("DELETE")) {
-						System.out.println("Invalid Command, please try again");
+						logger.info("Invalid Command, please try again");
 					}
 				}
 			}
 		}
-		
+
 		if (scan != null)
 			scan.close();
-		
+
 		try {
 			accManager.saveAccounts(accManager);
 		} catch (Exception e) {
-			System.out.println("Error writing to file");
+			logger.severe("Error writing to file");
 		}
 		finally {
 			if (scan != null)

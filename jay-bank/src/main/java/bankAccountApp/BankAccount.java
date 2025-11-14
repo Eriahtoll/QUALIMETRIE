@@ -129,11 +129,13 @@ public class BankAccount {
 	}
 
 	public boolean withdrawMoney(double withdrawAmount) {
+		// Decision point
 		if (withdrawAmount >= 0 && balance >= withdrawAmount && withdrawAmount < withdrawLimit
 				&& withdrawAmount + amountWithdrawn <= withdrawLimit) {
 			balance = balance - withdrawAmount;
 			success = true;
 			amountWithdrawn += withdrawAmount;
+			// Decision point
 		} else {
 			success = false;
 		}
