@@ -1,4 +1,4 @@
-# .github/workflows/java-file-report.yml
+# .github/workflows/main.yml
 name: Java File Report
 
 on:
