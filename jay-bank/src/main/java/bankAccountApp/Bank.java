@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @author jay
  */
 
-/**Petit test qui ne sert à rien*/
+
 public class Bank {
 
 	private static ArrayList<BankAccount> Accounts;
