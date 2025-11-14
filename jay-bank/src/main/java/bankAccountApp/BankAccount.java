@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author jay
+ * @author jayh
  */
 public class BankAccount {
 
