@@ -1,4 +1,3 @@
-# jay-bank/.github/workflows/java-file-report.yml
 name: Java File Report
 
 on:
@@ -23,37 +22,37 @@ jobs:
             echo "No Java files found!"
             exit 1
           fi
-          
+
           # Vérifier si des .class sont présents
           CLASS_FILES=$(find . -name "*.class")
           if [ -n "$CLASS_FILES" ]; then
             echo "Compiled .class files should not be committed!"
             exit 1
           fi
-          
+
           # Créer le fichier de rapport
           REPORT="java-file-report.txt"
           echo "Java File Report" > $REPORT
           echo "================" >> $REPORT
-          
+
           # Nombre total de fichiers
           NUM_FILES=$(echo "$JAVA_FILES" | wc -l)
           echo "Number of .java files: $NUM_FILES" >> $REPORT
-          
+
           # Total lignes de code
           TOTAL_LINES=$(find . -name "*.java" -exec wc -l {} + | tail -n1 | awk '{print $1}')
           echo "Total lines of code: $TOTAL_LINES" >> $REPORT
           echo "" >> $REPORT
           echo "Per-file breakdown:" >> $REPORT
-          
+
           # Détail par fichier
           for f in $JAVA_FILES; do
             LINES=$(wc -l < "$f")
             echo "$f - $LINES" >> $REPORT
           done
 
-- name: Upload report as artifact
-  uses: actions/upload-artifact@v4
-  with:
-    name: java-file-report
-    path: java-file-report.txt
+      - name: Upload report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: java-file-report
+          path: java-file-report.txt
